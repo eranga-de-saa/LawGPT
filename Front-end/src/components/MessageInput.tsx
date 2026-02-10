@@ -19,16 +19,22 @@ function MessageInput({ onSendMessage }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex gap-2">
       <label>
         <input
           type="text"
           value={userRequest}
           placeholder="Ask anything"
           onChange={handleChange}
+          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
         />
       </label>
-      <button type="submit">Submit</button>
+      <button
+        type="submit"
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+      >
+        Submit
+      </button>
     </form>
   );
 }

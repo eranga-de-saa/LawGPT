@@ -28,9 +28,11 @@ function App() {
   }
 
   return (
-    <div>
-      <MessagesList messages={messages} />
-      <MessageInput onSendMessage={addMessage} />
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
+      <div className="w-full max-w-2xl bg-white rounded border p-4 flex flex-col gap-4">
+        <MessagesList messages={messages} />
+        <MessageInput onSendMessage={addMessage} />
+      </div>
     </div>
   );
 }
