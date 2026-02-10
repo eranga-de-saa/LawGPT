@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./Back-end
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./Back-end/.env
+    volumes:
+      - ./Back-end:/app
+       - /app/node_modules
+    command: npm run dev
+
+  frontend:
+    build: ./Front-end
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./Front-end/.env
+    volumes:
+      - ./Front-end:/app
+       - /app/node_modules
+    command: npm run dev
