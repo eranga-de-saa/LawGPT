@@ -24,15 +24,13 @@ function MessageInput({ onSendMessage }: Props) {
         onSubmit={handleSubmit}
         className="mx-auto max-w-3xl flex items-center gap-3 px-4"
       >
-        <label>
-          <input
-            type="text"
-            value={userRequest}
-            placeholder="Ask anything"
-            onChange={handleChange}
-            className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
-          />
-        </label>
+        <input
+          type="text"
+          value={userRequest}
+          placeholder="Ask anything"
+          onChange={handleChange}
+          className=" flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
+        />
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
