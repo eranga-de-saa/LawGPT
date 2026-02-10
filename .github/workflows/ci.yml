@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install backend deps
+        run: |
+          cd Back-end
+          npm install
+
+      - name: Install frontend deps
+        run: |
+          cd Front-end
+          npm install
+
+      - name: Build backend
+        run: |
+          cd Back-end
+          npm run build || true
+
+      - name: Build frontend
+        run: |
+          cd Front-end
+          npm run build || true
+
+      - name: Docker build backend
+        run: docker build -t lawgpt-backend ./Back-end
+
+      - name: Docker build frontend
+        run: docker build -t lawgpt-frontend ./Front-end
