@@ -14,9 +14,11 @@ export async function createQuery(
   // res.send(req.body.query);
 
   try {
-    const externalResponse = await callExternalLLM(req.body.query);
+    // const externalResponse = await callExternalLLM(req.body.query);
 
-    return res.status(200).json({ reply: externalResponse });
+    return res
+      .status(200)
+      .json({ reply: "This is a mock response for the query." });
   } catch (error) {
     res.status(500).json({ reply: "Failed to process the query" });
   }
