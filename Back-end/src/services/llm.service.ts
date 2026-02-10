@@ -1,10 +1,18 @@
 import OpenAI from "openai";
 import { retrieveContext } from "./vector.service";
+import { getFromCache, setCache } from "./cache.service";
 
 export async function callExternalLLM(query: string): Promise<string> {
   const client = new OpenAI({
     apiKey: process.env["OPENAI_API_key"] as string,
   });
+
+  // retrieve from cache
+  const cachedResponse = await getFromCache(query);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
   //Retrieve relevant document context from Pinecone
   const docContext = await retrieveContext(query);
 
@@ -29,6 +37,9 @@ export async function callExternalLLM(query: string): Promise<string> {
   if (!response) {
     throw new Error("Failed to call LLM API");
   }
+
+  // store in cache
+  await setCache(query, response.output_text);
 
   return response.output_text;
 
