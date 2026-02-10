@@ -19,23 +19,28 @@ function MessageInput({ onSendMessage }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
-      <label>
-        <input
-          type="text"
-          value={userRequest}
-          placeholder="Ask anything"
-          onChange={handleChange}
-          className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
-        />
-      </label>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+    <div className="border-t bg-white py-4">
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto max-w-3xl flex items-center gap-3 px-4"
       >
-        Submit
-      </button>
-    </form>
+        <label>
+          <input
+            type="text"
+            value={userRequest}
+            placeholder="Ask anything"
+            onChange={handleChange}
+            className="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400"
+          />
+        </label>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 }
 

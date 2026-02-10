@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import MessageInput from "./components/MessageInput";
 import MessagesList from "./components/MessagesList";
 import type Message from "./classes/Message";
 import sendMessage from "./services/messages.service";
-import type QueryMessage from "./classes/QueryMessage";
 import type Response from "./classes/Response";
 
 function App() {
@@ -28,8 +27,11 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
-      <div className="w-full max-w-2xl bg-white rounded border p-4 flex flex-col gap-4">
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="w-full max-w-3xl h-[90vh] bg-white rounded-xl shadow-lg flex flex-col">
+        <header className="px-6 py-4 border-b text-lg font-semibold">
+          LawGPT - Your Legal Assistant
+        </header>
         <MessagesList messages={messages} />
         <MessageInput onSendMessage={addMessage} />
       </div>
