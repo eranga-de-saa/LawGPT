@@ -19,12 +19,15 @@
     "@langchain/textsplitters": "^1.0.1",
     "@pinecone-database/pinecone": "^7.0.0",
     "@redis-ai/langcache": "^0.11.1",
+    "@types/jest": "^30.0.0",
     "csv-parser": "^3.2.0",
     "dotenv": "^17.2.4",
-    "express": "^5.2.1",
+    "express": "^5.2.1",  
     "express-validator": "^7.3.1",
+    "jest": "^30.2.0",
     "langchain": "^1.2.18",
-    "openai": "^6.18.0"
+    "openai": "^6.18.0",
+    "ts-jest": "^29.4.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
