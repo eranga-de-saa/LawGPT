@@ -1,5 +1,3 @@
-interface Response {
+export type Response = {
   reply: string;
-}
-
-export default Response;
+};

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import MessageInput from "./components/MessageInput";
 import MessagesList from "./components/MessagesList";
-import type Message from "./classes/Message";
+import type { Message } from "./classes/Message";
 import sendMessage from "./services/messages.service";
-import type Response from "./classes/Response";
+import type { Response } from "./classes/Response";
 import PromptSuggestions from "./components/PromptSuggestions";
 
 function App() {

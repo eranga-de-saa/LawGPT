@@ -9,16 +9,10 @@ services:
       - ./Back-end/.env
     volumes:
       - ./Back-end:/app
-       - /app/node_modules
+      - /app/node_modules
     command: npm run dev
 
   frontend:
     build: ./Front-end
     ports:
-      - "5173:5173"
-    env_file:
-      - ./Front-end/.env
-    volumes:
-      - ./Front-end:/app
-       - /app/node_modules
-    command: npm run dev
+      - "5173:80"

@@ -1,6 +1,6 @@
 // api/messages.ts
-import type QueryMessage from "../classes/QueryMessage";
-import type Response from "../classes/Response";
+import type { QueryMessage } from "../classes/QueryMessage";
+import type { Response } from "../classes/Response";
 
 const backendHost = import.meta.env.VITE_BACKEND_HOST || "localhost";
 

@@ -1,5 +1,3 @@
-interface QueryMessage {
+export type QueryMessage = {
   query: string;
 }
-
-export default QueryMessage;

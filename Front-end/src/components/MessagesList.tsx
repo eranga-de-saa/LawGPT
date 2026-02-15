@@ -1,4 +1,4 @@
-import type Message from "./classes/Message";
+import type { Message } from "../classes/Message";
 
 interface Props {
   messages: Message[];

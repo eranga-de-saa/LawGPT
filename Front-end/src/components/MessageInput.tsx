@@ -14,7 +14,7 @@ function MessageInput({ onSendMessage }: Props) {
   const [userRequest, setUserRequest] = useState("");
 
   // Handler for input change
-  function handleChange(event: ChangeEvent) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setUserRequest(event.target.value);
   }
 

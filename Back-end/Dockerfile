@@ -11,4 +11,4 @@ RUN npm run build || true
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["node", "dist/index.js"]

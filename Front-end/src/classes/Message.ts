@@ -1,7 +1,5 @@
-interface Message {
+export type Message = {
   id: string;
-  role: "user" | "assistant";
+  role: string;
   content: string;
-}
-
-export default Message;
+};
