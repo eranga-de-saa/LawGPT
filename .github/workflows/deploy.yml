@@ -1,0 +1,46 @@
+name: Deploy to GKE
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    env:
+      PROJECT_ID: law-gpt-487518
+      PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
+      REGION: us-west1
+      ZONE: us-west1-a
+      CLUSTER: lawgpt-cluster
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: github-actions@law-gpt-487518.iam.gserviceaccount.com
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Install kubectl
+        run: gcloud components install kubectl --quiet
+
+      - name: Get GKE credentials
+        run: |
+          gcloud container clusters get-credentials $CLUSTER \
+            --zone $ZONE \
+            --project $PROJECT_ID
+
+      - name: Deploy Kubernetes manifests
+        run: kubectl apply -f k8s/
