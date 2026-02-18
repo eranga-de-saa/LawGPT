@@ -1,1 +1,1 @@
-{"root":["./src/app.ts"],"version":"5.9.3"}
+{"root":["./src/app.ts","./src/dtos/createquery.dto.ts","./src/routes/message.route.ts","./src/scripts/loaddb.ts","./src/services/cache.service.ts","./src/services/llm.service.ts","./src/services/message.service.ts","./src/services/vector.service.ts","./src/types/response.ts","./src/validators/env.validator.ts","./src/validators/message.validator.ts","./src/validators/validator.ts"],"version":"5.9.3"}
