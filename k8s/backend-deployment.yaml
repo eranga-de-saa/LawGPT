@@ -15,5 +15,8 @@ spec:
       containers:
         - name: backend
           image: us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+          envFrom:
+            - secretRef:
+              name: backend-secrets
           ports:
             - containerPort: 3000
