@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import MessageInput from "./components/MessageInput";
 import MessagesList from "./components/MessagesList";
 import type { Message } from "./classes/Message";
@@ -12,7 +13,7 @@ function App() {
 
   function addMessage(userRequest: string) {
     let userMessage: Message = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       role: "user",
       content: userRequest,
     };
@@ -23,7 +24,7 @@ function App() {
     sendMessage({ query: userRequest })
       .then((response: Response) => {
         let assistantMessage: Message = {
-          id: crypto.randomUUID(),
+          id: uuidv4(),
           role: "assistant",
           content: response.reply,
         };
