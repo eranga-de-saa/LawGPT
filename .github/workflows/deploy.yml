@@ -21,6 +21,7 @@ jobs:
       ZONE: us-west1-a
       CLUSTER: lawgpt-cluster
       USE_GKE_GCLOUD_AUTH_PLUGIN: "True"
+      SHA: ${{ github.sha }}
 
     steps:
       - name: Checkout repository
@@ -42,8 +43,8 @@ jobs:
       - name: Inject SHA into Manifests
         run: |
           # Replace the ':latest' placeholder with the actual Commit SHA
-          sed -i "s|backend:latest|backend:$SHA|g" k8s/backend-deployement.yaml
-          sed -i "s|frontend:latest|frontend:$SHA|g" k8s/fronend-deployement.yaml      
+          sed -i "s|backend:latest|backend:$SHA|g" k8s/backend-deployment.yaml
+          sed -i "s|frontend:latest|frontend:$SHA|g" k8s/fronend-deployment.yaml
 
       - name: Deploy Kubernetes manifests
         run: kubectl apply -f k8s/
