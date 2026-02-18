@@ -4,7 +4,7 @@ import { getFromCache, setCache } from "./cache.service";
 
 export async function callExternalLLM(query: string): Promise<string> {
   const client = new OpenAI({
-    apiKey: process.env["OPENAI_API_key"] as string,
+    apiKey: process.env["OPENAI_API_KEY"] as string,
   });
 
   // retrieve from cache
