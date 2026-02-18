@@ -1,11 +1,7 @@
-import { LangCache } from "@redis-ai/langcache";
+import { getLangCache } from "../clients/clients";
 
 export async function getFromCache(query: string): Promise<string | null> {
-  const cache = new LangCache({
-    serverURL: process.env.REDIS_HOST as string,
-    cacheId: process.env.REDIS_CACHE_ID as string,
-    apiKey: process.env.REDIS_API_KEY as string,
-  });
+  const cache = getLangCache();
 
   const res = await cache.search({
     prompt: query,
@@ -19,11 +15,7 @@ export async function getFromCache(query: string): Promise<string | null> {
 }
 
 export async function setCache(query: string, response: string): Promise<void> {
-  const cache = new LangCache({
-    serverURL: process.env.REDIS_HOST as string,
-    cacheId: process.env.REDIS_CACHE_ID as string,
-    apiKey: process.env.REDIS_API_KEY as string,
-  });
+  const cache = getLangCache();
 
   const res = await cache.set({
     prompt: query,

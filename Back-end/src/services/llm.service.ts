@@ -1,11 +1,9 @@
-import OpenAI from "openai";
 import { retrieveContext } from "./vector.service";
 import { getFromCache, setCache } from "./cache.service";
+import { getOpenAIClient } from "../clients/clients";
 
 export async function callExternalLLM(query: string): Promise<string> {
-  const client = new OpenAI({
-    apiKey: process.env["OPENAI_API_KEY"] as string,
-  });
+  const client = getOpenAIClient();
 
   // retrieve from cache
   const cachedResponse = await getFromCache(query);
