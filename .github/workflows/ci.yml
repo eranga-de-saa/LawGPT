@@ -5,9 +5,20 @@ on:
     branches: ["main"]
   pull_request:
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      PROJECT_ID: law-gpt-487518
+      PROJECT_NUMBER: ${{ secrets.GCP_PROJECT_NUMBER }}
+      ZONE: us-west1-a
+      CLUSTER: lawgpt-cluster
+      USE_GKE_GCLOUD_AUTH_PLUGIN: "True"
 
     steps:
       - name: Checkout code
@@ -43,3 +54,34 @@ jobs:
 
       - name: Docker build frontend
         run: docker build -t lawgpt-frontend ./Front-end
+
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/${{ env.PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: github-actions@law-gpt-487518.iam.gserviceaccount.com
+
+        # Setup gcloud
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      # Configure Docker for Artifact Registry
+      - name: Configure Docker
+        run: |
+          gcloud auth configure-docker us-west1-docker.pkg.dev --quiet
+
+      # Tag & push backend
+      - name: Push backend image
+        run: |
+          docker tag lawgpt-backend \
+            us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+          docker push us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+
+      # Tag & push frontend
+      - name: Push frontend image
+        run: |
+          docker tag lawgpt-frontend \
+            us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
+          docker push us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
