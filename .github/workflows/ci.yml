@@ -72,16 +72,43 @@ jobs:
         run: |
           gcloud auth configure-docker us-west1-docker.pkg.dev --quiet
 
+      # # Tag & push backend
+      # - name: Push backend image
+      #   run: |
+      #     docker tag lawgpt-backend \
+      #       us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+      #     docker push us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+
+      # # Tag & push frontend
+      # - name: Push frontend image
+      #   run: |
+      #     docker tag lawgpt-frontend \
+      #       us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
+      #     docker push us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
       # Tag & push backend
       - name: Push backend image
         run: |
-          docker tag lawgpt-backend \
-            us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
-          docker push us-west1-docker.pkg.dev/law-gpt-487518/backend/backend:latest
+          # Define the base image name
+          IMAGE_NAME=us-west1-docker.pkg.dev/law-gpt-487518/backend/backend
+
+          # 1. Tag with the unique Commit SHA (Permanent History)
+          docker tag lawgpt-backend $IMAGE_NAME:${{ github.sha }}
+          docker push $IMAGE_NAME:${{ github.sha }}
+
+          # 2. Tag with 'latest' (Convenience)
+          docker tag lawgpt-backend $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
 
       # Tag & push frontend
       - name: Push frontend image
         run: |
-          docker tag lawgpt-frontend \
-            us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
-          docker push us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend:latest
+          # Define the base image name
+          IMAGE_NAME=us-west1-docker.pkg.dev/law-gpt-487518/frontend/frontend
+
+          # 1. Tag with the unique Commit SHA (Permanent History)
+          docker tag lawgpt-frontend $IMAGE_NAME:${{ github.sha }}
+          docker push $IMAGE_NAME:${{ github.sha }}
+
+          # 2. Tag with 'latest' (Convenience)
+          docker tag lawgpt-frontend $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
